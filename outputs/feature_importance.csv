@@ -1,0 +1,11 @@
+,importance
+lithology,0.463
+land_cover,0.2218
+slope,0.1199
+rainfall,0.0464
+fault_dist,0.0413
+elevation,0.0335
+curvature,0.0247
+road_dist,0.0183
+river_dist,0.017
+aspect,0.0141

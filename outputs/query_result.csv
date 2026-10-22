@@ -1,0 +1,11 @@
+factor,value,pushes_risk,effect
+lithology,clay_shale,1.784,raises risk
+slope,17.6,-1.378,lowers risk
+rainfall,753,-0.74,lowers risk
+elevation,467,-0.411,lowers risk
+river_dist,28,0.375,raises risk
+curvature,2.05,-0.363,lowers risk
+fault_dist,10617,-0.233,lowers risk
+land_cover,farmland,0.114,raises risk
+road_dist,300,0.03,raises risk
+aspect,226,0.019,raises risk

@@ -1,0 +1,63 @@
+# Configuration for Landslide Susceptibility Pipeline
+project:
+  name: "Landslide Susceptibility AI"
+  seed: 42
+  dataset_is_benchmark: false
+
+paths:
+  data_dir: "data"
+  synthetic_data: "data/landslide_data.csv"
+  benchmark_data: "data/alvioli_2024_benchmark.csv"
+  models_dir: "models"
+  model_path: "models/xgb_pipeline.joblib"
+  calibrated_model_path: "models/xgb_calibrated.joblib"
+  outputs_dir: "outputs"
+  predictions_path: "outputs/predictions.csv"
+  map_html_path: "outputs/map.html"
+  report_html_path: "outputs/report.html"
+  report_pdf_path: "outputs/report.pdf"
+
+features:
+  numeric:
+    - "slope"
+    - "elevation"
+    - "aspect"
+    - "curvature"
+    - "rainfall"
+    - "river_dist"
+    - "road_dist"
+    - "fault_dist"
+  categorical:
+    - "land_cover"
+    - "lithology"
+  target: "landslide"
+
+spatial:
+  extent_km: 64.0
+  grid_n: 5
+  block_km: 8.0
+  split_fractions: [0.70, 0.15, 0.15]
+  # Geographic anchor for Central Italy benchmark (Umbria / Marche region)
+  center_lat: 42.85
+  center_lon: 12.65
+
+training:
+  cv_folds: 5
+  grid_search:
+    model__n_estimators: [100, 300]
+    model__max_depth: [3, 5]
+    model__learning_rate: [0.05, 0.1]
+  calibration_method: "isotonic"
+
+risk_classes:
+  labels: ["Very Low", "Low", "Moderate", "High", "Very High"]
+  bins: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0001]
+  colors: ["#2e8b57", "#9acd32", "#f2d544", "#f28c28", "#c0392b"]
+
+early_warning:
+  alert_levels:
+    Green: [0.0, 0.25]
+    Yellow: [0.25, 0.50]
+    Orange: [0.50, 0.75]
+    Red: [0.75, 1.0001]
+  open_meteo_url: "https://api.open-meteo.com/v1/forecast"

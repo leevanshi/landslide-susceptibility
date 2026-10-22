@@ -1,0 +1,7 @@
+Model,Accuracy,Precision,Recall,F1,AUC,Brier
+Logistic Regression,0.841,0.851,0.808,0.829,0.918,0.114
+Decision Tree,0.806,0.784,0.821,0.802,0.88,0.134
+SVM,0.829,0.835,0.8,0.817,0.914,0.118
+Random Forest,0.834,0.854,0.789,0.82,0.914,0.118
+Proposed (XGBoost),0.847,0.87,0.8,0.833,0.918,0.113
+Proposed (XGBoost Calibrated),0.848,0.881,0.789,0.832,0.917,0.114

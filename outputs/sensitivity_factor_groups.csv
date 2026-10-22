@@ -1,0 +1,7 @@
+,AUC
+None (all factors),0.918
+Slope + terrain,0.853
+Rainfall,0.917
+Land cover,0.901
+River + road,0.915
+Geology (lithology + fault),0.781
