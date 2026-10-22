@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Landslide Susceptibility & Early Warning System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-emerald-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl">⛰️</span>
+        <div>
+          <h1 class="font-bold text-lg leading-tight text-white">AI Landslide Susceptibility & Early Warning</h1>
+          <p class="text-xs text-slate-400">Spatial ML Pipeline • XGBoost • SHAP Explainability</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <a href="https://github.com/leevanshi/landslide-susceptibility" target="_blank" rel="noopener noreferrer" 
+           class="inline-flex items-center space-x-2 text-sm bg-slate-800 hover:bg-slate-700 text-slate-200 px-3.5 py-1.5 rounded-lg border border-slate-700 transition">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero & Metrics -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div class="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 divide-y md:divide-y-0 md:divide-x divide-slate-800">
+        <div class="p-2">
+          <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Slope Units</p>
+          <p class="text-2xl font-bold text-white mt-1">7,360</p>
+          <p class="text-xs text-slate-500 mt-0.5">Hydrological partitions</p>
+        </div>
+        <div class="p-2 md:pl-6">
+          <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Model Calibration</p>
+          <p class="text-2xl font-bold text-emerald-400 mt-1">Isotonic</p>
+          <p class="text-xs text-slate-500 mt-0.5">Reliable probabilities</p>
+        </div>
+        <div class="p-2 md:pl-6">
+          <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Validation Strategy</p>
+          <p class="text-2xl font-bold text-sky-400 mt-1">Spatial CV</p>
+          <p class="text-xs text-slate-500 mt-0.5">Block-based generalization</p>
+        </div>
+        <div class="p-2 md:pl-6">
+          <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Highest Risk Rock</p>
+          <p class="text-2xl font-bold text-amber-400 mt-1">Clay / Shale</p>
+          <p class="text-xs text-slate-500 mt-0.5">Near fault corridors</p>
+        </div>
+        <div class="p-2 md:pl-6">
+          <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Explainability</p>
+          <p class="text-2xl font-bold text-purple-400 mt-1">TreeSHAP</p>
+          <p class="text-xs text-slate-500 mt-0.5">Per-unit attribution</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="flex border-b border-slate-800 space-x-8 text-sm font-medium">
+      <button onclick="switchTab('map')" id="tab-btn-map" class="pb-3 border-b-2 border-emerald-500 text-emerald-400 transition">
+        🗺️ Interactive Geospatial Map
+      </button>
+      <button onclick="switchTab('models')" id="tab-btn-models" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">
+        📊 Model Evaluation & SHAP
+      </button>
+      <button onclick="switchTab('report')" id="tab-btn-report" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">
+        📑 Assessment Report
+      </button>
+      <button onclick="switchTab('deploy')" id="tab-btn-deploy" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">
+        🚀 Interactive Streamlit App
+      </button>
+    </div>
+
+    <!-- TAB 1: MAP -->
+    <div id="tab-map" class="space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-semibold text-white">Interactive Susceptibility & Lithology Map</h2>
+          <p class="text-sm text-slate-400">Toggle layers: Landslide Risk Tiers (5 classes), Geological Lithology, Fault Lines & Corridors.</p>
+        </div>
+        <a href="/map.html" target="_blank" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded border border-slate-700">
+          Open Fullscreen ↗
+        </a>
+      </div>
+      <div class="border border-slate-800 rounded-xl overflow-hidden shadow-2xl bg-slate-900" style="height: 680px;">
+        <iframe src="/map.html" class="w-full h-full border-0" title="Geospatial Map"></iframe>
+      </div>
+    </div>
+
+    <!-- TAB 2: MODEL EVALUATION -->
+    <div id="tab-models" class="hidden space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="font-semibold text-white mb-2">ROC Curve (Cross-Validation)</h3>
+          <p class="text-xs text-slate-400 mb-4">Spatial block cross-validation evaluation comparing baseline models against calibrated XGBoost.</p>
+          <img src="/assets/roc_curve.png" alt="ROC Curve" class="rounded-lg w-full object-contain bg-slate-950 p-2 border border-slate-800">
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="font-semibold text-white mb-2">Confusion Matrix</h3>
+          <p class="text-xs text-slate-400 mb-4">Classification performance on test slope units showing high sensitivity to landslide occurrences.</p>
+          <img src="/assets/confusion_matrix.png" alt="Confusion Matrix" class="rounded-lg w-full object-contain bg-slate-950 p-2 border border-slate-800">
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="font-semibold text-white mb-2">TreeSHAP Global Feature Importance</h3>
+          <p class="text-xs text-slate-400 mb-4">Mean absolute SHAP value impact across slope, fault proximity, rainfall, and lithology.</p>
+          <img src="/assets/shap_summary.png" alt="SHAP Summary" class="rounded-lg w-full object-contain bg-slate-950 p-2 border border-slate-800">
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="font-semibold text-white mb-2">Probability Calibration Curve</h3>
+          <p class="text-xs text-slate-400 mb-4">Comparing raw XGBoost sigmoid output vs isotonic probability calibration.</p>
+          <img src="/assets/calibration_curve.png" alt="Calibration Curve" class="rounded-lg w-full object-contain bg-slate-950 p-2 border border-slate-800">
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="font-semibold text-white mb-2">Factor Sensitivity Analysis</h3>
+          <p class="text-xs text-slate-400 mb-4">Drop in AUC performance when removing factor groups (Morphometry, Geology, Hydrology, Anthropogenic).</p>
+          <img src="/assets/sensitivity.png" alt="Sensitivity Analysis" class="rounded-lg w-full object-contain bg-slate-950 p-2 border border-slate-800">
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="font-semibold text-white mb-2">Susceptibility Spatial Distribution</h3>
+          <p class="text-xs text-slate-400 mb-4">Regional raster mapping across Central Apennines elevation & fault corridors.</p>
+          <img src="/assets/susceptibility_map.png" alt="Susceptibility Map" class="rounded-lg w-full object-contain bg-slate-950 p-2 border border-slate-800">
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: REPORT -->
+    <div id="tab-report" class="hidden space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-semibold text-white">Full Geotechnical Assessment Report</h2>
+          <p class="text-sm text-slate-400">Detailed methodology, spatial validation metrics, and early warning guidelines.</p>
+        </div>
+        <a href="/report.html" target="_blank" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded border border-slate-700">
+          Open in New Tab ↗
+        </a>
+      </div>
+      <div class="border border-slate-800 rounded-xl overflow-hidden shadow-2xl bg-white" style="height: 700px;">
+        <iframe src="/report.html" class="w-full h-full border-0" title="Assessment Report"></iframe>
+      </div>
+    </div>
+
+    <!-- TAB 4: STREAMLIT DEPLOYMENT -->
+    <div id="tab-deploy" class="hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <h2 class="text-xl font-bold text-white mb-2">Deploying the Full Interactive Streamlit App</h2>
+        <p class="text-sm text-slate-300 mb-6 leading-relaxed">
+          The repository contains both this fast static showcase (deployed on Vercel) and the complete dynamic Python application with real-time SHAP waterfall calculations, natural-language data querying, and live rainfall early warning simulator.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="border border-slate-800 bg-slate-950/60 rounded-xl p-5">
+            <div class="flex items-center space-x-2 text-emerald-400 font-semibold mb-3">
+              <span>☁️</span>
+              <h3>Streamlit Community Cloud (Recommended)</h3>
+            </div>
+            <p class="text-xs text-slate-400 mb-4">
+              Deploy the stateful Python app with persistent WebSocket connections for 100% free with 1 click:
+            </p>
+            <ol class="text-xs text-slate-300 space-y-2 list-decimal list-inside mb-5">
+              <li>Visit <a href="https://share.streamlit.io" target="_blank" class="text-emerald-400 underline">share.streamlit.io</a></li>
+              <li>Click <strong>New app</strong></li>
+              <li>Select repository: <code class="bg-slate-800 px-1 py-0.5 rounded text-slate-200">leevanshi/landslide-susceptibility</code></li>
+              <li>Main file path: <code class="bg-slate-800 px-1 py-0.5 rounded text-slate-200">app.py</code></li>
+              <li>Click <strong>Deploy!</strong></li>
+            </ol>
+            <a href="https://share.streamlit.io" target="_blank" class="inline-flex items-center text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-4 py-2 rounded-lg transition">
+              Deploy to Streamlit Cloud ↗
+            </a>
+          </div>
+
+          <div class="border border-slate-800 bg-slate-950/60 rounded-xl p-5">
+            <div class="flex items-center space-x-2 text-sky-400 font-semibold mb-3">
+              <span>💻</span>
+              <h3>Run Locally with Full ML Acceleration</h3>
+            </div>
+            <p class="text-xs text-slate-400 mb-4">
+              Run the full dashboard locally on your machine with access to interactive prompts:
+            </p>
+            <pre class="bg-slate-900 border border-slate-800 text-emerald-400 p-3 rounded-lg text-xs font-mono overflow-x-auto space-y-1">
+git clone https://github.com/leevanshi/landslide-susceptibility.git
+cd landslide-susceptibility
+pip install -r requirements.txt
+streamlit run app.py</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 mt-12">
+    <p>AI-Powered Landslide Susceptibility & Early Warning System • Built with XGBoost, SHAP, Folium & Streamlit</p>
+  </footer>
+
+  <script>
+    function switchTab(tabId) {
+      const tabs = ['map', 'models', 'report', 'deploy'];
+      tabs.forEach(id => {
+        const el = document.getElementById('tab-' + id);
+        const btn = document.getElementById('tab-btn-' + id);
+        if (id === tabId) {
+          el.classList.remove('hidden');
+          btn.classList.add('border-emerald-500', 'text-emerald-400');
+          btn.classList.remove('border-transparent', 'text-slate-400');
+        } else {
+          el.classList.add('hidden');
+          btn.classList.remove('border-emerald-500', 'text-emerald-400');
+          btn.classList.add('border-transparent', 'text-slate-400');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

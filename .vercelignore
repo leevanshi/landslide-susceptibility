@@ -1,0 +1,16 @@
+# Vercel ignore configuration
+# Prevents Vercel from triggering serverless Python detection on app.py
+requirements.txt
+app.py
+train.py
+analyze.py
+common.py
+report.py
+generate_data.py
+map_utils.py
+models/
+data/
+outputs/
+tests/
+Makefile
+pytest.ini
