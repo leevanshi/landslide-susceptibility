@@ -4,242 +4,708 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Landslide Susceptibility & Early Warning System</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#f0fdf4',
-              500: '#22c55e',
-              600: '#16a34a',
-              700: '#15803d',
-            }
-          }
-        }
-      }
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛰️</text></svg>">
+  <style>
+    /* CSS Reset & Design System - 100% Self-Contained, Zero External CDN */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-  </script>
-</head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-emerald-500 selection:text-white">
 
-  <!-- Header -->
-  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <span class="text-2xl">⛰️</span>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --card-border: #1f293d;
+      --card-hover: #192338;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.15);
+      --sky: #38bdf8;
+      --amber: #f59e0b;
+      --purple: #a855f7;
+      --rose: #f43f5e;
+      --radius: 12px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      font-size: 1.75rem;
+      line-height: 1;
+    }
+
+    .brand-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.825rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-secondary {
+      background: #1e293b;
+      border-color: #334155;
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: #2d3d54;
+      border-color: #475569;
+    }
+
+    .btn-primary {
+      background: #059669;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: #10b981;
+    }
+
+    .icon-svg {
+      width: 16px !important;
+      height: 16px !important;
+      max-width: 16px !important;
+      max-height: 16px !important;
+      display: inline-block;
+      flex-shrink: 0;
+      vertical-align: middle;
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.75rem 1.5rem 3rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    /* Metrics Grid */
+    .metrics-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #131d33 100%);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .metric-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      padding-right: 1rem;
+    }
+
+    .metric-card:last-child {
+      border-right: none;
+    }
+
+    .metric-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+
+    .metric-val {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .metric-val.emerald { color: var(--emerald); }
+    .metric-val.sky { color: var(--sky); }
+    .metric-val.amber { color: var(--amber); }
+    .metric-val.purple { color: var(--purple); }
+
+    .metric-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Tabs Bar */
+    .tabs-nav {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 0.75rem;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tab-btn.active {
+      color: #fff;
+      background: #1e293b;
+      border-color: #334155;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .tab-btn.active span.indicator {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--emerald);
+      margin-left: 0.25rem;
+    }
+
+    /* Tab Panes */
+    .tab-pane {
+      display: none;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .tab-pane.active {
+      display: flex;
+    }
+
+    /* Section Headers */
+    .pane-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .pane-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .pane-sub {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    /* Map Iframe Container */
+    .map-frame-wrapper {
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 680px;
+      background: #0b1120;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .map-frame-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Grid for Charts & Figures */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .chart-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .chart-card:hover {
+      border-color: #334155;
+      transform: translateY(-2px);
+    }
+
+    .chart-header h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .chart-header p {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-top: 0.15rem;
+    }
+
+    .chart-img-box {
+      background: #070b14;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 240px;
+    }
+
+    .chart-img-box img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+      object-fit: contain;
+    }
+
+    /* Report Iframe */
+    .report-frame-wrapper {
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 720px;
+      background: #ffffff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .report-frame-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Deploy Callout Card */
+    .deploy-box {
+      background: linear-gradient(135deg, #111827 0%, #162033 100%);
+      border: 1px solid #23314d;
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .deploy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .deploy-card {
+      background: #090e1a;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .deploy-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .deploy-card ol {
+      padding-left: 1.2rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .deploy-card code {
+      background: #1e293b;
+      color: var(--emerald);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.775rem;
+      font-family: monospace;
+    }
+
+    pre.code-block {
+      background: #090d16;
+      border: 1px solid #1f293d;
+      color: var(--sky);
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      font-size: 0.775rem;
+      font-family: Consolas, Monaco, monospace;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      background: #090d16;
+    }
+
+    @media (max-width: 768px) {
+      .header-inner { flex-direction: column; align-items: flex-start; }
+      .metrics-banner { grid-template-columns: 1fr 1fr; }
+      .metric-card { border-right: none; }
+      .map-frame-wrapper { height: 480px; }
+      .charts-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-icon">⛰️</span>
         <div>
-          <h1 class="font-bold text-lg leading-tight text-white">AI Landslide Susceptibility & Early Warning</h1>
-          <p class="text-xs text-slate-400">Spatial ML Pipeline • XGBoost • SHAP Explainability</p>
+          <div class="brand-title">AI Landslide Susceptibility & Early Warning</div>
+          <div class="brand-sub">Spatial ML Pipeline • XGBoost • TreeSHAP Explainability</div>
         </div>
       </div>
-      <div class="flex items-center space-x-3">
-        <a href="https://github.com/leevanshi/landslide-susceptibility" target="_blank" rel="noopener noreferrer" 
-           class="inline-flex items-center space-x-2 text-sm bg-slate-800 hover:bg-slate-700 text-slate-200 px-3.5 py-1.5 rounded-lg border border-slate-700 transition">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      <div class="header-actions">
+        <a href="https://github.com/leevanshi/landslide-susceptibility" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
           <span>GitHub</span>
+        </a>
+        <a href="https://share.streamlit.io" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          <span>🚀 Run Dynamic App</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Hero & Metrics -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-    <div class="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 divide-y md:divide-y-0 md:divide-x divide-slate-800">
-        <div class="p-2">
-          <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Slope Units</p>
-          <p class="text-2xl font-bold text-white mt-1">7,360</p>
-          <p class="text-xs text-slate-500 mt-0.5">Hydrological partitions</p>
-        </div>
-        <div class="p-2 md:pl-6">
-          <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Model Calibration</p>
-          <p class="text-2xl font-bold text-emerald-400 mt-1">Isotonic</p>
-          <p class="text-xs text-slate-500 mt-0.5">Reliable probabilities</p>
-        </div>
-        <div class="p-2 md:pl-6">
-          <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Validation Strategy</p>
-          <p class="text-2xl font-bold text-sky-400 mt-1">Spatial CV</p>
-          <p class="text-xs text-slate-500 mt-0.5">Block-based generalization</p>
-        </div>
-        <div class="p-2 md:pl-6">
-          <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Highest Risk Rock</p>
-          <p class="text-2xl font-bold text-amber-400 mt-1">Clay / Shale</p>
-          <p class="text-xs text-slate-500 mt-0.5">Near fault corridors</p>
-        </div>
-        <div class="p-2 md:pl-6">
-          <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Explainability</p>
-          <p class="text-2xl font-bold text-purple-400 mt-1">TreeSHAP</p>
-          <p class="text-xs text-slate-500 mt-0.5">Per-unit attribution</p>
-        </div>
+  <!-- Main Content -->
+  <main>
+    <!-- Key Metrics Banner -->
+    <section class="metrics-banner">
+      <div class="metric-card">
+        <span class="metric-label">Total Slope Units</span>
+        <span class="metric-val">7,360</span>
+        <span class="metric-desc">Hydrological partitions</span>
       </div>
-    </div>
+      <div class="metric-card">
+        <span class="metric-label">Probability Calibration</span>
+        <span class="metric-val emerald">Isotonic</span>
+        <span class="metric-desc">Well-calibrated risk</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Validation Strategy</span>
+        <span class="metric-val sky">Spatial CV</span>
+        <span class="metric-desc">8 km block isolation</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Highest Risk Rock</span>
+        <span class="metric-val amber">Clay / Shale</span>
+        <span class="metric-desc">Fault corridor proximity</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Model Explainability</span>
+        <span class="metric-val purple">TreeSHAP</span>
+        <span class="metric-desc">Per-unit factor attributions</span>
+      </div>
+    </section>
 
     <!-- Navigation Tabs -->
-    <div class="flex border-b border-slate-800 space-x-8 text-sm font-medium">
-      <button onclick="switchTab('map')" id="tab-btn-map" class="pb-3 border-b-2 border-emerald-500 text-emerald-400 transition">
-        🗺️ Interactive Geospatial Map
+    <nav class="tabs-nav">
+      <button class="tab-btn active" onclick="showTab('map', this)">
+        <span>🗺️</span>
+        <span>Interactive Geospatial Map</span>
+        <span class="indicator"></span>
       </button>
-      <button onclick="switchTab('models')" id="tab-btn-models" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">
-        📊 Model Evaluation & SHAP
+      <button class="tab-btn" onclick="showTab('models', this)">
+        <span>📊</span>
+        <span>Model Evaluation & SHAP</span>
       </button>
-      <button onclick="switchTab('report')" id="tab-btn-report" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">
-        📑 Assessment Report
+      <button class="tab-btn" onclick="showTab('report', this)">
+        <span>📑</span>
+        <span>Assessment Report</span>
       </button>
-      <button onclick="switchTab('deploy')" id="tab-btn-deploy" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">
-        🚀 Interactive Streamlit App
+      <button class="tab-btn" onclick="showTab('deploy', this)">
+        <span>🚀</span>
+        <span>Streamlit Cloud Integration</span>
       </button>
-    </div>
+    </nav>
 
-    <!-- TAB 1: MAP -->
-    <div id="tab-map" class="space-y-4">
-      <div class="flex items-center justify-between">
+    <!-- TAB 1: GEOSPATIAL MAP -->
+    <section id="tab-map" class="tab-pane active">
+      <div class="pane-header">
         <div>
-          <h2 class="text-lg font-semibold text-white">Interactive Susceptibility & Lithology Map</h2>
-          <p class="text-sm text-slate-400">Toggle layers: Landslide Risk Tiers (5 classes), Geological Lithology, Fault Lines & Corridors.</p>
+          <h2 class="pane-title">Regional Susceptibility & Lithology Map</h2>
+          <p class="pane-sub">Interactive Leaflet visualization: Toggle 5 Landslide Risk Tiers, Geological Lithology, Fault Lines & Corridors.</p>
         </div>
-        <a href="/map.html" target="_blank" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded border border-slate-700">
-          Open Fullscreen ↗
+        <a href="/map.html" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <span>Open Fullscreen</span>
+          <span>↗</span>
         </a>
       </div>
-      <div class="border border-slate-800 rounded-xl overflow-hidden shadow-2xl bg-slate-900" style="height: 680px;">
-        <iframe src="/map.html" class="w-full h-full border-0" title="Geospatial Map"></iframe>
+      <div class="map-frame-wrapper">
+        <iframe src="/map.html" title="Geospatial Map"></iframe>
       </div>
-    </div>
+    </section>
 
-    <!-- TAB 2: MODEL EVALUATION -->
-    <div id="tab-models" class="hidden space-y-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-          <h3 class="font-semibold text-white mb-2">ROC Curve (Cross-Validation)</h3>
-          <p class="text-xs text-slate-400 mb-4">Spatial block cross-validation evaluation comparing baseline models against calibrated XGBoost.</p>
-          <img src="/assets/roc_curve.png" alt="ROC Curve" class="rounded-lg w-full object-contain bg-slate-950 p-2 border border-slate-800">
-        </div>
-
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-          <h3 class="font-semibold text-white mb-2">Confusion Matrix</h3>
-          <p class="text-xs text-slate-400 mb-4">Classification performance on test slope units showing high sensitivity to landslide occurrences.</p>
-          <img src="/assets/confusion_matrix.png" alt="Confusion Matrix" class="rounded-lg w-full object-contain bg-slate-950 p-2 border border-slate-800">
-        </div>
-
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-          <h3 class="font-semibold text-white mb-2">TreeSHAP Global Feature Importance</h3>
-          <p class="text-xs text-slate-400 mb-4">Mean absolute SHAP value impact across slope, fault proximity, rainfall, and lithology.</p>
-          <img src="/assets/shap_summary.png" alt="SHAP Summary" class="rounded-lg w-full object-contain bg-slate-950 p-2 border border-slate-800">
-        </div>
-
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-          <h3 class="font-semibold text-white mb-2">Probability Calibration Curve</h3>
-          <p class="text-xs text-slate-400 mb-4">Comparing raw XGBoost sigmoid output vs isotonic probability calibration.</p>
-          <img src="/assets/calibration_curve.png" alt="Calibration Curve" class="rounded-lg w-full object-contain bg-slate-950 p-2 border border-slate-800">
-        </div>
-
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-          <h3 class="font-semibold text-white mb-2">Factor Sensitivity Analysis</h3>
-          <p class="text-xs text-slate-400 mb-4">Drop in AUC performance when removing factor groups (Morphometry, Geology, Hydrology, Anthropogenic).</p>
-          <img src="/assets/sensitivity.png" alt="Sensitivity Analysis" class="rounded-lg w-full object-contain bg-slate-950 p-2 border border-slate-800">
-        </div>
-
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-          <h3 class="font-semibold text-white mb-2">Susceptibility Spatial Distribution</h3>
-          <p class="text-xs text-slate-400 mb-4">Regional raster mapping across Central Apennines elevation & fault corridors.</p>
-          <img src="/assets/susceptibility_map.png" alt="Susceptibility Map" class="rounded-lg w-full object-contain bg-slate-950 p-2 border border-slate-800">
+    <!-- TAB 2: MODEL EVALUATION & CHARTS -->
+    <section id="tab-models" class="tab-pane">
+      <div class="pane-header">
+        <div>
+          <h2 class="pane-title">Model Evaluation, Calibration & Explainability</h2>
+          <p class="pane-sub">Evaluated with spatial cross-validation to prevent spatial autocorrelation leakage.</p>
         </div>
       </div>
-    </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>ROC Curve (Spatial CV)</h3>
+            <p>Spatial block validation comparing baseline models to calibrated XGBoost.</p>
+          </div>
+          <div class="chart-img-box">
+            <img src="/assets/roc_curve.png" alt="ROC Curve" loading="lazy">
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>Confusion Matrix</h3>
+            <p>Test slope units classification across 0.5 decision threshold.</p>
+          </div>
+          <div class="chart-img-box">
+            <img src="/assets/confusion_matrix.png" alt="Confusion Matrix" loading="lazy">
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>TreeSHAP Global Feature Importance</h3>
+            <p>Impact of conditioning factors: Slope, Fault Proximity, Lithology, Rainfall.</p>
+          </div>
+          <div class="chart-img-box">
+            <img src="/assets/shap_summary.png" alt="SHAP Summary" loading="lazy">
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>Probability Calibration Curve</h3>
+            <p>Isotonic calibration correcting raw sigmoid tree probabilities.</p>
+          </div>
+          <div class="chart-img-box">
+            <img src="/assets/calibration_curve.png" alt="Calibration Curve" loading="lazy">
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>Factor Group Sensitivity</h3>
+            <p>Drop in model AUC when morphometry, geology, or hydrology factors are ablated.</p>
+          </div>
+          <div class="chart-img-box">
+            <img src="/assets/sensitivity.png" alt="Sensitivity Analysis" loading="lazy">
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>Susceptibility Spatial Distribution</h3>
+            <p>Regional risk classification following Central Italy Apennines topography.</p>
+          </div>
+          <div class="chart-img-box">
+            <img src="/assets/susceptibility_map.png" alt="Susceptibility Map" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- TAB 3: REPORT -->
-    <div id="tab-report" class="hidden space-y-4">
-      <div class="flex items-center justify-between">
+    <section id="tab-report" class="tab-pane">
+      <div class="pane-header">
         <div>
-          <h2 class="text-lg font-semibold text-white">Full Geotechnical Assessment Report</h2>
-          <p class="text-sm text-slate-400">Detailed methodology, spatial validation metrics, and early warning guidelines.</p>
+          <h2 class="pane-title">Full Geotechnical Assessment Report</h2>
+          <p class="pane-sub">Complete scientific documentation, validation benchmarks, and early warning criteria.</p>
         </div>
-        <a href="/report.html" target="_blank" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded border border-slate-700">
-          Open in New Tab ↗
+        <a href="/report.html" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <span>Open Report in New Tab</span>
+          <span>↗</span>
         </a>
       </div>
-      <div class="border border-slate-800 rounded-xl overflow-hidden shadow-2xl bg-white" style="height: 700px;">
-        <iframe src="/report.html" class="w-full h-full border-0" title="Assessment Report"></iframe>
+      <div class="report-frame-wrapper">
+        <iframe src="/report.html" title="Assessment Report"></iframe>
       </div>
-    </div>
+    </section>
 
-    <!-- TAB 4: STREAMLIT DEPLOYMENT -->
-    <div id="tab-deploy" class="hidden space-y-6">
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-        <h2 class="text-xl font-bold text-white mb-2">Deploying the Full Interactive Streamlit App</h2>
-        <p class="text-sm text-slate-300 mb-6 leading-relaxed">
-          The repository contains both this fast static showcase (deployed on Vercel) and the complete dynamic Python application with real-time SHAP waterfall calculations, natural-language data querying, and live rainfall early warning simulator.
-        </p>
+    <!-- TAB 4: STREAMLIT CLOUD -->
+    <section id="tab-deploy" class="tab-pane">
+      <div class="deploy-box">
+        <div>
+          <h2 class="pane-title">Run the Dynamic Python Application</h2>
+          <p class="pane-sub">
+            The full application in <code>app.py</code> contains real-time interactive SHAP waterfall calculations, a natural language query engine, and a live rainfall early warning scenario simulator.
+          </p>
+        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="border border-slate-800 bg-slate-950/60 rounded-xl p-5">
-            <div class="flex items-center space-x-2 text-emerald-400 font-semibold mb-3">
+        <div class="deploy-grid">
+          <div class="deploy-card">
+            <div class="deploy-card-title">
               <span>☁️</span>
-              <h3>Streamlit Community Cloud (Recommended)</h3>
+              <span>Deploy to Streamlit Community Cloud (Free)</span>
             </div>
-            <p class="text-xs text-slate-400 mb-4">
-              Deploy the stateful Python app with persistent WebSocket connections for 100% free with 1 click:
-            </p>
-            <ol class="text-xs text-slate-300 space-y-2 list-decimal list-inside mb-5">
-              <li>Visit <a href="https://share.streamlit.io" target="_blank" class="text-emerald-400 underline">share.streamlit.io</a></li>
-              <li>Click <strong>New app</strong></li>
-              <li>Select repository: <code class="bg-slate-800 px-1 py-0.5 rounded text-slate-200">leevanshi/landslide-susceptibility</code></li>
-              <li>Main file path: <code class="bg-slate-800 px-1 py-0.5 rounded text-slate-200">app.py</code></li>
+            <ol>
+              <li>Go to <a href="https://share.streamlit.io" target="_blank" style="color:var(--emerald); text-decoration:underline;">share.streamlit.io</a> and connect your GitHub account.</li>
+              <li>Click <strong>New app</strong>.</li>
+              <li>Select repository: <code>leevanshi/landslide-susceptibility</code></li>
+              <li>Set main file path: <code>app.py</code></li>
               <li>Click <strong>Deploy!</strong></li>
             </ol>
-            <a href="https://share.streamlit.io" target="_blank" class="inline-flex items-center text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-4 py-2 rounded-lg transition">
-              Deploy to Streamlit Cloud ↗
-            </a>
+            <div style="margin-top:auto;">
+              <a href="https://share.streamlit.io" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%; justify-content:center;">
+                Launch Streamlit Community Cloud ↗
+              </a>
+            </div>
           </div>
 
-          <div class="border border-slate-800 bg-slate-950/60 rounded-xl p-5">
-            <div class="flex items-center space-x-2 text-sky-400 font-semibold mb-3">
+          <div class="deploy-card">
+            <div class="deploy-card-title">
               <span>💻</span>
-              <h3>Run Locally with Full ML Acceleration</h3>
+              <span>Run Locally with Python</span>
             </div>
-            <p class="text-xs text-slate-400 mb-4">
-              Run the full dashboard locally on your machine with access to interactive prompts:
-            </p>
-            <pre class="bg-slate-900 border border-slate-800 text-emerald-400 p-3 rounded-lg text-xs font-mono overflow-x-auto space-y-1">
-git clone https://github.com/leevanshi/landslide-susceptibility.git
+            <pre class="code-block">git clone https://github.com/leevanshi/landslide-susceptibility.git
 cd landslide-susceptibility
 pip install -r requirements.txt
 streamlit run app.py</pre>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </main>
 
-  <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 mt-12">
+  <!-- Footer -->
+  <footer>
     <p>AI-Powered Landslide Susceptibility & Early Warning System • Built with XGBoost, SHAP, Folium & Streamlit</p>
   </footer>
 
   <script>
-    function switchTab(tabId) {
-      const tabs = ['map', 'models', 'report', 'deploy'];
-      tabs.forEach(id => {
-        const el = document.getElementById('tab-' + id);
-        const btn = document.getElementById('tab-btn-' + id);
-        if (id === tabId) {
-          el.classList.remove('hidden');
-          btn.classList.add('border-emerald-500', 'text-emerald-400');
-          btn.classList.remove('border-transparent', 'text-slate-400');
-        } else {
-          el.classList.add('hidden');
-          btn.classList.remove('border-emerald-500', 'text-emerald-400');
-          btn.classList.add('border-transparent', 'text-slate-400');
-        }
+    function showTab(tabId, clickedBtn) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      // Remove active from all buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        const indicator = btn.querySelector('.indicator');
+        if (indicator) indicator.remove();
       });
+
+      // Show selected tab
+      const targetPane = document.getElementById('tab-' + tabId);
+      if (targetPane) targetPane.classList.add('active');
+
+      // Highlight button
+      clickedBtn.classList.add('active');
+      const dot = document.createElement('span');
+      dot.className = 'indicator';
+      clickedBtn.appendChild(dot);
     }
   </script>
 </body>
